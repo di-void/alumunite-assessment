@@ -21,8 +21,8 @@ A RESTful API built with Laravel for managing user posts with user authenticatio
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd <project-folder>
+git clone https://github.com/di-void/alumunite-assessment.git
+cd alumunite-assessment
 ```
 
 2. Install dependencies:
