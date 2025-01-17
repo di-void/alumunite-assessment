@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "b664d17d-0b92-4527-91b7-cf6035b99b58",
+		"name": "ALUMNITE",
+		"description": "A RESTful API built with Laravel for managing user posts with user authentication.\n\n## Features\n\n- User Authentication (Register/Login)\n    \n- Post Management (CRUD operations)\n    \n- Token-based Authentication using Sanctum\n    \n- Input Validation\n    \n- JSON Responses",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20693808"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "Register a new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"const token = jsonData.token;\r",
+									"\r",
+									"if (token) {\r",
+									"    pm.test(\"auth token received\", function () {\r",
+									"        pm.expect(token).to.exist;\r",
+									"        pm.expect(token).to.be.a('string');\r",
+									"        pm.expect(token.length).to.be.greaterThan(0);\r",
+									"    });\r",
+									"\r",
+									"    pm.collectionVariables.set('auth_token', token);\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"johndoetesting\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"const token = jsonData.token;\r",
+									"\r",
+									"if (token) {\r",
+									"    pm.test(\"auth token received\", function () {\r",
+									"        pm.expect(token).to.exist;\r",
+									"        pm.expect(token).to.be.a('string');\r",
+									"        pm.expect(token.length).to.be.greaterThan(0);\r",
+									"    });\r",
+									"\r",
+									"    pm.collectionVariables.set('auth_token', token);\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"johndoetesting\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout a user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/logout",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "#### Register\n\n- **POST** `/api/v1/register`\n    \n- Body: `name`, `email`, `password`\n    \n\n#### Login\n\n- **POST** `/api/v1/login`\n    \n- Body: `email`, `password`\n    \n\n#### Logout\n\n- **POST** `/api/v1/logout`\n    \n- Requires: Authentication Token"
+		},
+		{
+			"name": "POSTS",
+			"item": [
+				{
+					"name": "List all posts for user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/posts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Hello world\",\r\n    \"content\": \"I just want to say Hello and thank you.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/posts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View a specific post",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/posts/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a post",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Hello World Pt. 2\",\r\n    \"content\": \"Just chilling\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/posts/3",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/posts/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "#### Get All Posts\n\n- **GET** `/api/v1/posts`\n    \n- Requires: Authentication Token\n    \n\n#### Create Post\n\n- **POST** `/api/v1/posts`\n    \n- Requires: Authentication Token\n    \n- Body: `title`, `content`\n    \n\n#### Get Single Post\n\n- **GET** `/api/v1/posts/{id}`\n    \n- Requires: Authentication Token\n    \n\n#### Update Post\n\n- **PUT** `/api/v1/posts/{id}`\n    \n- Requires: Authentication Token\n    \n- Body: `title`, `content`\n    \n\n#### Delete Post\n\n- **DELETE** `/api/v1/posts/{id}`\n    \n- Requires: Authentication Token"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"if (pm.collectionVariables.get(\"auth_token\")) {\r",
+					"    pm.request.headers.add({\r",
+					"        key: 'Authorization',\r",
+					"        value: 'Bearer ' + pm.collectionVariables.get(\"auth_token\")\r",
+					"    });\r",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": ""
+		}
+	]
+}
